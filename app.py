@@ -12,6 +12,34 @@ def get_db():
 @app.route('/')
 def home():
     return render_template('login.html')
+@app.route('/login', methods=['POST'])
+def login():
+    username=request.form['username']
+    password=request.form['password']
+    #Get credentials for log in form 
+    #build a SQL query that shows entries that match the user's credentials 
+    db=get_db()  #fetching the database connection
+    c=db.cursor() #assigning a cursor to the database connection 
+
+    query=f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
+
+    c.execute(query) #execute query 
+
+    result=c.fetchone()
+
+    if result:
+        print("Login successful")
+
+    else: 
+        print("Login failed" )
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
