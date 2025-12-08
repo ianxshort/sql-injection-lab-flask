@@ -28,10 +28,10 @@ def login():
     result=c.fetchone()
 
     if result:
-        print("Login successful")
+        return render_template('success.html')
 
     else: 
-        print("Login failed" )
+        return render_template('login.html', error="Invalid username or password")
 
 
 
