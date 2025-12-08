@@ -29,5 +29,13 @@ SELECT * FROM users WHERE username='admin' OR '1'='1' --' AND password=''
 ![Successful Authentication](screenshots/Example1_Bypass.jpg)
 
 
+## Fix demonstration 
 
+    query="SELECT * FROM users WHERE username=? AND password=?"
+    c.execute(query, (username, password))
+
+
+## Why This Fix Works 
+
+Parameterization works by separating the SQL query structure from the user's input. The database first receives and compiles the SQL query structure with placeholders(?). After processing, user input is then sent separately as parameter data. The database treats the parameter data as string literals rather than executable code, preventing SQL injection attacks from bypassing authentication.
 
